@@ -11,10 +11,10 @@ being less error prone.
 """
 from __future__ import print_function
 
-import StringIO  # not python 3 compatible
 import calendar
 import csv
 import datetime
+import io
 import logging
 import os
 import socket
@@ -329,7 +329,7 @@ def export_data(measurement, unique_id, start_seconds, end_seconds):
         return '', 204
 
     def iter_csv(data_in):
-        line = StringIO.StringIO()
+        line = io.StringIO()
         writer = csv.writer(line)
         writer.writerow(('timestamp (UTC)', '{name} {meas} ({id})'.format(
             name=name, meas=measurement, id=unique_id)))

@@ -5,6 +5,7 @@ from mycodo.mycodo_flask.extensions import db
 
 class Remote(CRUDMixin, db.Model):
     __tablename__ = "remote"
+    __table_args__ = {'extend_existing': True}
 
     id = db.Column(db.Integer, unique=True, primary_key=True)
     is_activated = db.Column(db.Boolean, default=False)
