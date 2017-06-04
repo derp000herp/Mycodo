@@ -80,6 +80,14 @@ case "${1:-''}" in
             printf "## Virtualenv already exists, skipping creation\n"
         fi
     ;;
+    'setup-virtualenv-python3')
+        if [ ! -d ${INSTALL_DIRECTORY}/Mycodo/env_py3 ]; then
+            pip install virtualenv --upgrade
+            virtualenv --system-site-packages -p python3 ${INSTALL_DIRECTORY}/Mycodo/env_py3
+        else
+            printf "## Virtualenv already exists, skipping creation\n"
+        fi
+    ;;
     'update-alembic')
         printf "\n#### Upgrading database with alembic\n"
         source ${INSTALL_DIRECTORY}/Mycodo/env/bin/activate
@@ -115,6 +123,7 @@ case "${1:-''}" in
         printf "\n#### Installing prerequisite apt packages and update pip\n"
         apt-get update -y
         apt-get install -y apache2 gawk git libapache2-mod-wsgi libav-tools libboost-python-dev libffi-dev libi2c-dev python-dev python-numpy python-opencv python-setuptools python-smbus sqlite3
+        apt-get install -y python3 python3-dev  # Python 3
         easy_install pip
         pip install pip --upgrade
     ;;
@@ -124,8 +133,18 @@ case "${1:-''}" in
             printf "\n## Error: Virtualenv doesn't exist. Create with $0 setup-virtualenv\n"
         else
             source ${INSTALL_DIRECTORY}/Mycodo/env/bin/activate
-            ${INSTALL_DIRECTORY}/Mycodo/env/bin/pip install pip --upgrade
-            ${INSTALL_DIRECTORY}/Mycodo/env/bin/pip install -r ${INSTALL_DIRECTORY}/Mycodo/install/requirements.txt --upgrade
+            ${INSTALL_DIRECTORY}/Mycodo/env/bin/pip install --upgrade pip setuptools
+            ${INSTALL_DIRECTORY}/Mycodo/env/bin/pip install --upgrade -r ${INSTALL_DIRECTORY}/Mycodo/install/requirements.txt
+        fi
+    ;;
+    'update-pip-packages-py3')
+        printf "\n#### Installing pip requirements from requirements.txt\n"
+        if [ ! -d ${INSTALL_DIRECTORY}/Mycodo/env_py3 ]; then
+            printf "\n## Error: Virtualenv doesn't exist. Create with $0 setup-virtualenv\n"
+        else
+            source ${INSTALL_DIRECTORY}/Mycodo/env_py3/bin/activate
+            ${INSTALL_DIRECTORY}/Mycodo/env_py3/bin/pip3 install --upgrade pip setuptools
+            ${INSTALL_DIRECTORY}/Mycodo/env_py3/bin/pip3 install --upgrade -r ${INSTALL_DIRECTORY}/Mycodo/install/requirements-python3.txt
         fi
     ;;
     'update-mycodo-startup-script')
