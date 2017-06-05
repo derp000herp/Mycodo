@@ -3,7 +3,7 @@
 import logging
 import smbus
 import time
-from sensorutils import dewpoint
+from .sensorutils import dewpoint
 from .base_sensor import AbstractSensor
 
 logger = logging.getLogger("mycodo.sensors.sht2x")

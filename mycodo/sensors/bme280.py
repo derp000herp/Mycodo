@@ -6,8 +6,8 @@
 import logging
 import time
 import Adafruit_GPIO.I2C as I2C
-from sensorutils import dewpoint
-from sensorutils import altitude
+from .sensorutils import dewpoint
+from .sensorutils import altitude
 from .base_sensor import AbstractSensor
 
 # BME280 default address.

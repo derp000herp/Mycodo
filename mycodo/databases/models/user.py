@@ -1,6 +1,5 @@
 # coding=utf-8
 import bcrypt
-
 from flask_login import UserMixin
 from mycodo.mycodo_flask.extensions import db
 from mycodo.databases import CRUDMixin
@@ -9,6 +8,7 @@ from mycodo.databases import CRUDMixin
 class User(UserMixin, CRUDMixin, db.Model):
     __tablename__ = "users"
     __table_args__ = {'extend_existing': True}
+    __abstract__ = True
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.VARCHAR(64), unique=True, index=True)

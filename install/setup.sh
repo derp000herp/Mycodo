@@ -58,6 +58,7 @@ cd ${INSTALL_DIRECTORY}/install/PIGPIO
 make -j4
 make install
 /usr/local/bin/pigpiod &
+${INSTALL_DIRECTORY}/env_py3/bin/python3 setup.py install
 cd ${INSTALL_DIRECTORY}/install
 rm -rf ./PIGPIO ./pigpio.zip
 

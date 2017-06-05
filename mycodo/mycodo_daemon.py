@@ -295,7 +295,9 @@ class DaemonController(threading.Thread):
         self.logger.info("Anonymous statistics {state}".format(state=state))
 
     def run(self):
+        self.logger.error("TEST01")
         self.start_all_controllers()
+        self.logger.error("TEST02")
         self.daemon_startup_time = timeit.default_timer() - self.startup_timer
         self.logger.info("Mycodo daemon v{ver} started in {time:.3f}"
                          " seconds".format(ver=MYCODO_VERSION,
@@ -646,7 +648,12 @@ class DaemonController(threading.Thread):
         controller does.
         """
         # Obtain database configuration options
-        lcd = db_retrieve_table_daemon(LCD, entry='all')
+        self.logger.error("TEST03")
+        try:
+            lcd = db_retrieve_table_daemon(LCD, entry='all')
+        except Exception:
+            self.logger.exception(1)
+        self.logger.error("TEST04")
         pid = db_retrieve_table_daemon(PID, entry='all')
         sensor = db_retrieve_table_daemon(Sensor, entry='all')
         timer = db_retrieve_table_daemon(Timer, entry='all')

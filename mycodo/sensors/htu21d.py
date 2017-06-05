@@ -23,7 +23,7 @@
 import logging
 import pigpio
 import time
-from sensorutils import dewpoint
+from .sensorutils import dewpoint
 from .base_sensor import AbstractSensor
 
 logger = logging.getLogger("mycodo.sensors.htu21d")

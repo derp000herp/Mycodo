@@ -4,7 +4,7 @@ import time
 import pigpio
 
 from .base_sensor import AbstractSensor
-from sensorutils import dewpoint
+from .sensorutils import dewpoint
 from mycodo.databases.models import Relay
 from mycodo.utils.database import db_retrieve_table_daemon
 

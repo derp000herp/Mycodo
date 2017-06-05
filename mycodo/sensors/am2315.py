@@ -1,8 +1,8 @@
 # coding=utf-8
 import logging
 import time
-from tentacle_pi import AM2315
-from sensorutils import dewpoint
+# from tentacle_pi import AM2315
+from .sensorutils import dewpoint
 from .base_sensor import AbstractSensor
 
 logger = logging.getLogger("mycodo.sensors.am2315")

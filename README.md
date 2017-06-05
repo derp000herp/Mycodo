@@ -7,6 +7,18 @@
 #### [Mycodo Manual](https://github.com/kizniche/Mycodo/blob/master/mycodo-manual.md) ([PDF](https://github.com/kizniche/Mycodo/raw/master/mycodo-manual.pdf), [HTML](http://htmlpreview.github.io/?https://github.com/kizniche/Mycodo/blob/master/mycodo-manual.html), [TEXT](https://raw.githubusercontent.com/kizniche/Mycodo/master/mycodo-manual.txt))
 
 
+### Python 3 branch progress
+
+ - [X] Get daemon to start (but with unloggable critical error; log lines isolate error)
+ - [x] Replace pi_switch with rpi-rf
+ - [ ] Test rpi-rf
+ - [x] Replace tentaclepi with aosong (AM2315) and tsl2561
+ - [ ] Test aosong and tsl2561
+ - [X] Disable opencv
+ - [ ] Fix or replace opencv
+
+### About
+
 Mycodo is a remote monitoring and automated regulation system with a focus on modulating environmental conditions. It was built to run on the Raspberry Pi (versions Zero, 1, 2, and 3) and aims to be easy to install and set up. A web interface enables easy navigation and configuration from any browser-enabled device.
 
 The core system is built to conduct measurements from sensors and coordinate a diverse set of responses to those measurements. Features include the ability to modulate relays (wired and 433MHz wireless) to control powered devices, regulate environmental conditions with electrical devices under PID control, conduct steady environmental regulation or setpoint tracking for changing conditions over time (uses building reflow ovens, thermal cyclers, etc.), schedule simple timers to control when relays turn on and off, capture photos and stream video, trigger actions when measurements meet certain conditions (modulate relays, execute commands, notify by email, attach photo/video), and more.

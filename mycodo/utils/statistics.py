@@ -13,37 +13,27 @@ from collections import OrderedDict
 from influxdb import InfluxDBClient
 from sqlalchemy import func
 
-# Classes
-from mycodo.databases.models import (
-    AlembicVersion,
-    Conditional,
-    LCD,
-    Method,
-    PID,
-    Relay,
-    Sensor,
-    Timer,
-    User
-)
+from mycodo.databases.models import AlembicVersion
+from mycodo.databases.models import Conditional
+from mycodo.databases.models import LCD
+from mycodo.databases.models import Method
+from mycodo.databases.models import PID
+from mycodo.databases.models import Relay
+from mycodo.databases.models import Sensor
+from mycodo.databases.models import Timer
+from mycodo.databases.models import User
 
-# Functions
-from database import db_retrieve_table_daemon
+from .database import db_retrieve_table_daemon
 
-# Config
-from mycodo.config import (
-    ID_FILE,
-    MYCODO_VERSION,
-    SQL_DATABASE_MYCODO,
-    STATS_CSV,
-    STATS_DATABASE,
-    STATS_HOST,
-    STATS_INTERVAL,
-    STATS_PORT,
-    STATS_PASSWORD,
-    STATS_USER
-)
-
-MYCODO_DB_PATH = 'sqlite:///' + SQL_DATABASE_MYCODO
+from mycodo.config import ID_FILE
+from mycodo.config import MYCODO_VERSION
+from mycodo.config import STATS_CSV
+from mycodo.config import STATS_DATABASE
+from mycodo.config import STATS_HOST
+from mycodo.config import STATS_INTERVAL
+from mycodo.config import STATS_PORT
+from mycodo.config import STATS_PASSWORD
+from mycodo.config import STATS_USER
 
 logger = logging.getLogger("mycodo.stats")
 
@@ -110,7 +100,7 @@ def add_update_csv(csv_file, key, value):
 
         uid_gid = pwd.getpwnam('mycodo').pw_uid
         os.chown(csv_file, uid_gid, uid_gid)
-        os.chmod(csv_file, 0664)
+        os.chmod(csv_file, 0o664)
         os.remove(temp_file_name)  # delete backed-up original
     except Exception as except_msg:
         logger.exception('[Statistics] Could not update stat csv: '
@@ -179,7 +169,7 @@ def recreate_stat_file():
         with open(ID_FILE, 'w') as write_file:
             write_file.write('{}'.format(anonymous_id))
         os.chown(ID_FILE, uid_gid, uid_gid)
-        os.chmod(ID_FILE, 0664)
+        os.chmod(ID_FILE, 0o664)
 
     with open(ID_FILE, 'r') as read_file:
         stat_id = read_file.read()
@@ -217,7 +207,7 @@ def recreate_stat_file():
         for row in new_stat_data:
             write_csv.writerow(row)
     os.chown(STATS_CSV, uid_gid, uid_gid)
-    os.chmod(STATS_CSV, 0664)
+    os.chmod(STATS_CSV, 0o664)
 
 
 def send_anonymous_stats(start_time):

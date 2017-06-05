@@ -40,21 +40,40 @@ def db_retrieve_table_daemon(table, entry=None, device_id=None, unique_id=None):
     If device_id is set, the first entry with that device ID is returned.
     Otherwise, the table object is returned.
     """
-    with session_scope(MYCODO_DB_PATH) as new_session:
-        if device_id:
-            return_table = new_session.query(table).filter(
-                table.id == int(device_id))
-        elif unique_id:
-            return_table = new_session.query(table).filter(
-                table.unique_id == unique_id)
-        else:
-            return_table = new_session.query(table)
+    logger.error("TEST05")
+    try:
+        with session_scope(MYCODO_DB_PATH) as new_session:
+            logger.error("TEST06")
 
-        if entry == 'first' or device_id or unique_id:
-            return_table = return_table.first()
-        elif entry == 'all':
-            return_table = return_table.all()
+            if device_id:
+                return_table = new_session.query(table).filter(
+                    table.id == int(device_id))
+            elif unique_id:
+                return_table = new_session.query(table).filter(
+                    table.unique_id == unique_id)
+            else:
+                logger.error("TEST07")
+                return_table = new_session.query(table)
 
-        new_session.expunge_all()
-        new_session.close()
+            logger.error("TEST08")
+
+            if entry == 'first' or device_id or unique_id:
+                logger.error("TEST09")
+                return_table = return_table.first()
+            elif entry == 'all':
+                logger.error("TEST10")
+                return_table = return_table.all()
+
+            logger.error("TEST11")
+
+            new_session.expunge_all()
+
+            logger.error("TEST12")
+
+            new_session.close()
+    except Exception:
+        logger.error("TEST13")
+        logger.exception("TEST14")
+
+    logger.error("TEST15")
     return return_table
