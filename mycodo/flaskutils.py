@@ -1860,6 +1860,9 @@ def sensor_add(form_add_sensor):
             elif form_add_sensor.sensor.data == 'K30':
                 new_sensor.measurements = 'co2'
                 new_sensor.location = 'Tx/Rx'
+            elif form_add_sensor.sensor.data == 'MHZ19':
+                new_sensor.measurements = 'co2'
+                new_sensor.location = 'Tx/Rx'
 
             # pH
             elif form_add_sensor.sensor.data == 'ATLAS_PH_I2C':
